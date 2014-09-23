@@ -10,7 +10,25 @@
 
 To spawn a new instance of wordpress:
 
-    $ ./addNewWordpress docker-folyam-info
+    root@folyam:/docker# ./addNewWordpress docker-folyam-info
+    Run sandbox
+    bd514adb3e218fb52f5b85b80133b149c86bd097ffc5c78ba734c6079713062b
+    Copy mysql-data
+    Copy wordpress-data
+    Stop sandbox
+    wordpress-docker-folyam-info
+    wordpress-docker-folyam-info
+    Run docker-folyam-info
+    5dd90664d4021be8949fcf0b0ad7770216cf667a8f80b1336f7ae23a11aaaa2d
+    >>> 127.0.0.1:49182
+    ReGenerate HAProxy
+    Domain list for wordpress-docker-folyam-info: [^D to finish]
+    docker-folyam-info
+     ---
+    Configuration file is valid
+    HAProxy Config: Nice
+     * Restarting haproxy haproxy   [ OK ]
+    root@folyam:/docker#
 
 The name of the docker will be `docker-folyam-info` with a `wordpress` prefix: `wordpress-docker-folyam-info`
 
