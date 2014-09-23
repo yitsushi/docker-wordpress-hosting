@@ -1,16 +1,16 @@
 #!/bin/bash
 
+DIR="$( cd "$( dirname "${0}" )" && pwd )"
+
 if [[ -z $1 ]]
 then
   echo "Add a hostname please" >&2
   exit 1
 fi
 
-exit
+SHARED="${DIR}/DATA/$1"
 
-SHARED="./DATA/$1"
-
-if [[ -d "./DATA/$1" ]]
+if [[ -d "${SHARED}" ]]
 then
   echo "Host exists" >&2
   #exit 1
@@ -36,4 +36,4 @@ PORT=$(docker port "wordpress-$1" 80 | awk -F: '{ print $2 }')
 echo ">>> 127.0.0.1:"$PORT
 
 echo "ReGenerate HAProxy"
-sh generateHaproxyConfig.sh
+./generateHaproxyConfig.sh

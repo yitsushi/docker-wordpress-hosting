@@ -4,7 +4,7 @@
 
     $ git clone https://github.com/Yitsushi/docker-wordpress-hosting.git
     $ cd docker-wordpress-hosting
-    $ docker build -t="docker-wordpress-hosting" .
+    $ docker build -t="docker-wordpress-hosting" docker-wordpress-hosting
 
 ## Usage
 

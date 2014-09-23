@@ -4,7 +4,7 @@ _l=`grep -n "%CONATINERS%" haproxy/haproxy.cfg | grep -o "^[0-9]\+"`
 
 head -n $(($_l - 1)) haproxy/haproxy.cfg > /tmp/generated_haproxy.cfg
 
-nameList=`docker ps | grep -o "wordpress-[^ ]\+" | grep -v "docker-wordpress-hosting"`
+nameList=`docker ps "\bwordpress-" | grep -o "wordpress-[^ ]\+" | grep -v "wordpress-hosting"`
 
 for name in $nameList; do
   if [ ! -f "/etc/haproxy/groups/${name}" ]; then
