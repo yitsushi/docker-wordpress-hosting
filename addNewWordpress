@@ -1,0 +1,39 @@
+#!/bin/bash
+
+if [[ -z $1 ]]
+then
+  echo "Add a hostname please" >&2
+  exit 1
+fi
+
+exit
+
+SHARED="./DATA/$1"
+
+if [[ -d "./DATA/$1" ]]
+then
+  echo "Host exists" >&2
+  #exit 1
+else
+  mkdir "${SHARED}"
+  echo "Run sandbox" >&2
+  docker run -p 127.0.0.1::80 -p 22 -d --name "wordpress-$1" docker-wordpress-hosting
+
+  echo "Copy mysql-data" >&2
+  docker cp wordpress-$1:/var/lib/mysql ${SHARED}
+  echo "Copy wordpress-data" >&2
+  docker cp wordpress-$1:/usr/share/nginx/www ${SHARED}
+
+  echo "Stop sandbox" >&2
+  docker stop "wordpress-$1"
+  docker rm "wordpress-$1"
+fi
+
+echo "Run $1" >&2
+docker run -p 127.0.0.1::80 -p 127.0.0.1::22 -v $SHARED/mysql:/var/lib/mysql -v $SHARED/www:/usr/share/nginx/www -d --name "wordpress-$1" docker-wordpress-hosting
+
+PORT=$(docker port "wordpress-$1" 80 | awk -F: '{ print $2 }')
+echo ">>> 127.0.0.1:"$PORT
+
+echo "ReGenerate HAProxy"
+sh generateHaproxyConfig.sh
